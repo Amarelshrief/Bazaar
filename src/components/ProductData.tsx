@@ -17,8 +17,8 @@ interface Product {
   rating: number;
 }
 
-// interface Details {
-//   data: Product[];
+// interface Id {
+//   id: number;
 // }
 
 function ProductData() {

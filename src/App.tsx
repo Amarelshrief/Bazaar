@@ -11,6 +11,7 @@ import {
 import { ProductsData } from "./api/Api";
 import Product from "./components/ProductData";
 import Login from "./Pages/Login";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 function Layout() {
   return (
@@ -50,10 +51,20 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
+  // const [isLoading, setIsLoading] = useState(true);
+  // useEffect(() => {
+  //   setIsLoading(false);
+  // }, []);
   return (
     <>
-      <RouterProvider router={router} />
+      <div>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </div>
     </>
   );
 }

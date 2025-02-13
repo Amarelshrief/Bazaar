@@ -1,11 +1,31 @@
 import ProductsCard from "./ProductCard";
 import { Product } from "../Pages/Home";
+import { useQuery } from "@tanstack/react-query";
+import { ProductsData } from "../api/Api";
 
-interface products {
-  products: Product[];
-}
+function Products() {
+  const { data, isPending } = useQuery({
+    queryKey: ["products"],
+    queryFn: ProductsData,
+  });
 
-function Products(props: products) {
+  let content;
+
+  if (isPending) {
+    content = <p className="text-4xl font-bodyFont">Fetching the data ...</p>;
+  }
+
+  if (data) {
+    content = (
+      <div className="max-w-sm md:max-w-screen-sm lg:max-w-screen-xl mx-auto py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        {data.map((product: Product) => (
+          <ProductsCard key={product._id} {...product} />
+        ))}
+      </div>
+    );
+  }
+  // console.log(content);
+
   return (
     <div className="py-12">
       <div className="flex flex-col gap-4 items-center mx-auto">
@@ -19,11 +39,7 @@ function Products(props: products) {
           rem vero, unde ullam, cumque voluptate quo nesciunt, sunt modi vitae.
         </p>
       </div>
-      <div className="max-w-sm md:max-w-screen-sm lg:max-w-screen-xl mx-auto py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {props.products.map((product) => (
-          <ProductsCard key={product._id} {...product} />
-        ))}
-      </div>
+      {content}
     </div>
   );
 }

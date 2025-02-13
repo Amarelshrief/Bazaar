@@ -1,4 +1,3 @@
-import { useLoaderData } from "react-router-dom";
 import Banner from "../components/Banner";
 import Products from "../components/Products";
 
@@ -18,13 +17,12 @@ interface Products {
 }
 
 function Home() {
-  const data: Products = useLoaderData() as Products;
   // console.log(data.data);
 
   return (
     <div>
       <Banner />
-      <Products products={data.data} />
+      <Products />
     </div>
   );
 }
